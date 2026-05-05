@@ -23,23 +23,17 @@ spring:
     hibernate:
       ddl-auto: update           # use 'validate' in prod after first run
     show-sql: false
+    defer-datasource-initialization: true
     properties:
       hibernate:
         format_sql: true
         # dialect: org.hibernate.dialect.PostgreSQLDialect
         # jdbc:
         #   time_zone: UTC
-  # ── Data Initialization ───────────────────────────────────
-  spring:
-    jpa:
-      # hibernate:
-      #   ddl-auto: update
-      defer-datasource-initialization: true   # ← ensures JPA creates tables BEFORE data.sql runs
-
-    sql:
-      init:
-        mode: always                          # ← always run data.sql on startup
-        data-locations: classpath:data.sql    # ← explicit path
+  sql:
+    init:
+      mode: always                          # ← always run data.sql on startup
+      data-locations: classpath:data.sql
 
   # ── Swagger UI Documentation ───────────────────────────────────
   springdoc:
@@ -79,7 +73,7 @@ profile:
     allowed-origins: >
       ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
 
-# ── Actuator ────────────────────────────────────────────────
+# ── Aclctuator ────────────────────────────────────────────────
 management:
   endpoints:
     web:
