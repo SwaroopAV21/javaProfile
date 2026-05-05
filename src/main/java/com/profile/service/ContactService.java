@@ -23,7 +23,7 @@ public class ContactService {
     private final JavaMailSender mailSender;
     private final ContactMessageRepository contactMessageRepository;
 
-    @Value("${portfolio.mail.to}")
+    @Value("${profile.mail.to}")
     private String mailTo;
 
     @Value("${spring.mail.username}")

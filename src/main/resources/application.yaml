@@ -1,3 +1,131 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: Protfolio
+    name: portfolio-backend
+
+  # ── PostgreSQL ──────────────────────────────────────────────
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:portfolio_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
+  # ── JPA / Hibernate ─────────────────────────────────────────
+  jpa:
+    hibernate:
+      ddl-auto: update           # use 'validate' in prod after first run
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        # dialect: org.hibernate.dialect.PostgreSQLDialect
+        # jdbc:
+        #   time_zone: UTC
+  # ── Data Initialization ───────────────────────────────────
+  spring:
+    jpa:
+      # hibernate:
+      #   ddl-auto: update
+      defer-datasource-initialization: true   # ← ensures JPA creates tables BEFORE data.sql runs
+
+    sql:
+      init:
+        mode: always                          # ← always run data.sql on startup
+        data-locations: classpath:data.sql    # ← explicit path
+
+  # ── Swagger UI Documentation ───────────────────────────────────
+  springdoc:
+    api-docs:
+      path: /api-docs
+    swagger-ui:
+      path: /swagger-ui
+      tags-sorter: alpha
+      operations-sorter: alpha
+    info:
+      title: Portfolio API
+      version: 1.0.0
+      description: REST API for personal portfolio
+  
+  # ── Mail (SMTP — Gmail example) ──────────────────────────────
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:swaroopav0303@gmail.com}
+    password: ${MAIL_PASSWORD:passwd}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+# ── Profile custom config ──────────────────────────────────
+profile:
+  mail:
+    to: ${MAIL_TO:swaroopav0303@gmail.com}     # inbox where contact form lands
+  cors:
+    allowed-origins: >
+      ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+
+# ── Actuator ────────────────────────────────────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# ── Logging ─────────────────────────────────────────────────
+logging:
+  level:
+    root: INFO
+    com.profile: DEBUG
+    org.hibernate.SQL: WARN
+    org.hibernate.tool.schema: DEBUG    # ← this shows table creation
+    com.zaxxer.hikari: DEBUG  
+    org.springframework.jdbc.datasource.init: DEBUG
+    org.springframework.boot.autoconfigure.sql.init: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+---
+# ── Profile: local ───────────────────────────────────────────
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.profile: DEBUG
+    org.hibernate.SQL: DEBUG
+
+---
+# ── Profile: prod ────────────────────────────────────────────
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+logging:
+  level:
+    root: WARN
+    com.profile: INFO
