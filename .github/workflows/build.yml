@@ -1,0 +1,55 @@
+name: Build Portfolio Docker Image
+run-name: Build Portfolio Docker Image
+
+on:
+#  push:
+#    branches:
+#      - V_1.0.0
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v6
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Log in to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+        - name: Extract metadata (tags, labels)
+          id: meta
+          uses: docker/metadata-action@v5
+          with:
+            images: ${{ secrets.DOCKERHUB_USERNAME }}/java-profile
+            tags: |
+              type=ref,event=branch
+              type=semver,pattern={{version}}
+              type=sha
+
+        - name: Print Images and Tags
+          run: |
+              echo "Images: ${{ steps.meta.outputs.images }}"
+              echo "Tags: ${{ steps.meta.outputs.tags }}"
+              echo "Labels: ${{ steps.meta.outputs.labels }}"
+
+        - name: Build and push
+          uses: docker/build-push-action@v6
+          with:
+            context: .
+            push: ${{ github.event_name != 'pull_request' }}
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
+            cache-from: type=gha
+            cache-to: type=gha,mode=max
