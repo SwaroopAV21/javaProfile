@@ -30,10 +30,10 @@ spring:
         # dialect: org.hibernate.dialect.PostgreSQLDialect
         # jdbc:
         #   time_zone: UTC
-  sql:
-    init:
-      mode: never                          # ← always run data.sql on startup
-      data-locations: classpath:data.sql
+#  sql:
+#    init:
+#      mode: never                          # ← always run data.sql on startup
+#      data-locations: classpath:data.sql
 
   # ── Swagger UI Documentation ───────────────────────────────────
   springdoc:
@@ -50,9 +50,9 @@ spring:
   
   # ── Mail (SMTP — Gmail example) ──────────────────────────────
   mail:
-    host: ${MAIL_HOST:smtp.gmail.com}
-    port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:swaroopav0303@gmail.com}
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
     properties:
       mail:
