@@ -2,9 +2,9 @@ name: Build Portfolio Docker Image
 run-name: Build Portfolio Docker Image
 
 on:
-  push:
-    branches:
-      - V_1.0.0
+#  push:
+#    branches:
+#      - V_1.0.0
   pull_request:
     branches:
       - main
