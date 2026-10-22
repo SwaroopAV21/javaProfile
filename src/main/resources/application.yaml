@@ -32,7 +32,7 @@ spring:
         #   time_zone: UTC
   sql:
     init:
-      mode: always                          # ← always run data.sql on startup
+      mode: never                          # ← always run data.sql on startup
       data-locations: classpath:data.sql
 
   # ── Swagger UI Documentation ───────────────────────────────────
