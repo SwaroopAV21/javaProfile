@@ -1,0 +1,33 @@
+name: "Preview Profile"
+run-name: "Preview Profile - ${{ github.event_name }} - ${{ github.ref_name }}"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Start containers
+        working-directory: ${{ github.workspace }}/DockerComposeDir
+        run: |
+          docker compose up -d
+          sleep 20
+          
+          curl -f http://localhost:5173
+
+      - name: Open public link
+        working-directory: ${{ github.workspace }}/DockerComposeDir
+        run: |
+          curl -L -o cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+          chmod +x cloudflared
+          
+          ./cloudflared tunnel --url http://localhost:5173 2>&1 | tee tunnel.log &
+          
+          sleep 15
+          grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' tunnel.log | head -1
+          sleep 300
