@@ -7,7 +7,7 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -25,9 +25,7 @@ jobs:
         run: |
           curl -L -o cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
           chmod +x cloudflared
-          
           ./cloudflared tunnel --url http://localhost:5173 2>&1 | tee tunnel.log &
-          
           sleep 15
           grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' tunnel.log | head -1
-          sleep 300
+          sleep 1500
