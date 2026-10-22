@@ -53,7 +53,7 @@ SELECT 'GitHub Actions', 'DevOps', 90, 'github', 8
 
 -- Projects
 INSERT INTO projects (title, short_desc, description, tech_stack, github_url, live_url, featured, sort_order, start_date)
-SELECT 'Associate Software Engineer — Backend Ownership',
+SELECT 'Associate Software Engineer - Backend Ownership [ Inserted from docker db image ]',
        'Owned Responsibilities and End to End Delivery.',
        '• Own DevOps for production products, automating 70–80% of the development-to-QA pipeline and materially reducing manual
                       release effort per cycle.
@@ -69,10 +69,10 @@ SELECT 'Associate Software Engineer — Backend Ownership',
        'Python, Go, Flask, NoSQL[ElasticSearch],Git GitHubActions, Github Copilot, Angular, Docker, Kubernetes, ArgoCD',
        'https://github.com/SwaroopAV21/javaProfile/',
        NULL, true, 1, '2024-01-01'
-WHERE NOT EXISTS (SELECT 1 FROM projects WHERE title = 'Associate Software Engineer — Backend Ownership');
+WHERE NOT EXISTS (SELECT 1 FROM projects WHERE title = 'Associate Software Engineer - Backend Ownership');
 
 INSERT INTO projects (title, short_desc, description, tech_stack, github_url, live_url, featured, sort_order, start_date)
-SELECT 'Associate Software Engineer — Full Stack Delivery',
+SELECT 'Associate Software Engineer - Full Stack Delivery',
        'Developed import microservices on a upscaling application.',
        '• Designed and shipped an import/export RESTful API using Java 8, Spring Data JPA, Hibernate and MySQL, later extracted into a
                       standalone microservice deployed on AWS.
@@ -84,9 +84,9 @@ SELECT 'Associate Software Engineer — Full Stack Delivery',
        'Java, Spring MVC, Spring boot, Spring Data JPA, Hibernate, Playwright, TypeScript, MySQL, AWS',
        'https://github.com/SwaroopAV21/javaProfile/',
        'NULL', false, 2, '2023-09-01'
-WHERE NOT EXISTS (SELECT 1 FROM projects WHERE title = 'Associate Software Engineer — Full Stack Delivery');
+WHERE NOT EXISTS (SELECT 1 FROM projects WHERE title = 'Associate Software Engineer - Full Stack Delivery');
 INSERT INTO projects (title, short_desc, description, tech_stack, github_url, live_url, featured, sort_order, start_date)
-SELECT 'Associate Software Engineer — Backend Development',
+SELECT 'Associate Software Engineer - Backend Development',
        'Developed backend RESTful APIs in Java 17 / Spring Boot and an CLI tool in C++ from scratch.',
        '• Designed and developed backend RESTful APIs in Java 17 / Spring Boot with Spring Data JPA, Hibernate and PostgreSQL,
                       applying multithreading for concurrent request handling on a shared server providing centralized database access across
@@ -100,11 +100,11 @@ SELECT 'Associate Software Engineer — Backend Development',
        'Java, Spring MVC, Spring boot, Spring Data JPA, Hibernate, Playwright, TypeScript, MySQL, AWS',
        'https://github.com/SwaroopAV21/javaProfile/',
        'NULL', false, 2, '2023-04-11'
-    WHERE NOT EXISTS (SELECT 1 FROM projects WHERE title = 'Associate Software Engineer — Backend Development');
+    WHERE NOT EXISTS (SELECT 1 FROM projects WHERE title = 'Associate Software Engineer - Backend Development');
 
 -- Experiences
 INSERT INTO experiences (company, role, description, location, start_date, end_date, is_current, tech_used, sort_order)
-SELECT 'Mphasis | Hewlett Packard Enterprise', 'Associate Software Engineer — Backend & Platform Ownership',
+SELECT 'Mphasis | Hewlett Packard Enterprise', 'Associate Software Engineer - Backend & Platform Ownership',
        'Backend-focused Software Engineer with 3.6 years of experience building production RESTful APIs and microservices in Java 8/17,
                 Spring Boot, Spring Data JPA and Hibernate on PostgreSQL/MySQL. Embedded on-site with Hewlett Packard Enterprise (HPE)
                 engineering teams, working directly alongside HPE stakeholders on day-to-day delivery. Applies multithreading and concurrency to
