@@ -48,7 +48,7 @@ WORKDIR /home/portfolio/portfolio
 COPY --from=build /portfolio/target/*.jar portfolio.jar
 
 # Tell Docker (and anyone reading this file) which port the app uses
-EXPOSE 8082
+EXPOSE 8080
 
 # Periodically check the app is actually alive and responding.
 # Change the URL if your app doesn't use Spring Boot Actuator, or if

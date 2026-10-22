@@ -32,7 +32,7 @@ spring:
         #   time_zone: UTC
   sql:
     init:
-      mode: always                          # ← always run data.sql on startup
+      mode: never                          # ← always run data.sql on startup
       data-locations: classpath:data.sql
 
   # ── Swagger UI Documentation ───────────────────────────────────
@@ -53,7 +53,7 @@ spring:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
     username: ${MAIL_USERNAME:swaroopav0303@gmail.com}
-    password: ${MAIL_PASSWORD:passwd}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
