@@ -13,7 +13,14 @@ on:
 
 
 jobs:
-    build:
+    build_frontend:
+      uses: SwaroopAV21/portfolio-frontend/.github/workflows/build.yml@main
+      secrets: {
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }},
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      }
+
+    build_backend:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repo

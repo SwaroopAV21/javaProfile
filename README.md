@@ -14,6 +14,32 @@ A Spring Boot application, runnable locally with Maven or as a Docker container.
 
 ---
 
+* Note: Before running ensure DB and MAIL are set in env
+
+```bash
+# Linux: 
+export DB_HOST=localhost
+export DB_PORT=5432
+export DB_USERNAME=postgres
+exoprt DB_NAME='your-real-db-name'
+export DB_PASSWORD='your-real-password'
+export MAIL_USERNAME='your-real-mail-username'
+export MAIL_PASSWORD='your-real-mail-password'
+export CORS_ORIGINS='http://localhost:5173,http://localhost:3000'
+
+# Windows PowerShell:
+$env:DB_HOST="localhost"
+$env:DB_PORT=5432
+$env:DB_USERNAME="postgres"
+$env:DB_NAME="your-real-db-name"
+$env:DB_PASSWORD="your-real-password"
+$env:MAIL_USERNAME="your-real-mail-username"
+$env:MAIL_PASSWORD="your-real-mail-password"
+$env:CORS_ORIGINS="http://localhost:5173,http://localhost:3000"
+---
+```
+---
+
 ## 🛠️ Developer Builds
 
 ### Compile
