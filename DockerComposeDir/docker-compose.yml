@@ -1,6 +1,6 @@
 services:
   db:
-    image: swaroopav/postgresdb:latest
+    image: swaroopav/postgresdb:main
     container_name: postgresdb
     restart: unless-stopped
     environment:
@@ -16,7 +16,7 @@ services:
       retries: 10
 
   backend:
-    image: swaroopav/java-profile:latest
+    image: swaroopav/java-profile:main
     container_name: java-profile
     restart: unless-stopped
     environment:
@@ -32,7 +32,7 @@ services:
         condition: service_healthy
 
   frontend:
-    image: swaroopav/my-portfolio:latest
+    image: swaroopav/my-portfolio:main
     container_name: my-portfolio
     restart: unless-stopped
     ports:
