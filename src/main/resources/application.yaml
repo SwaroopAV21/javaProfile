@@ -30,10 +30,10 @@ spring:
         # dialect: org.hibernate.dialect.PostgreSQLDialect
         # jdbc:
         #   time_zone: UTC
-  sql:
-    init:
-      mode: never                          # ← always run data.sql on startup
-      data-locations: classpath:data.sql
+#  sql:
+#    init:
+#      mode: never                          # ← always run data.sql on startup
+#      data-locations: classpath:data.sql
 
   # ── Swagger UI Documentation ───────────────────────────────────
   springdoc:
