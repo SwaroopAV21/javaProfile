@@ -15,6 +15,7 @@ permissions: { contents: read, packages: write }
 
 jobs:
     build_frontend:
+      if: github.event_name != 'pull_request'
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repo
@@ -60,6 +61,7 @@ jobs:
             cache-to: type=gha,mode=max
 
     build_backend:
+      if: github.event_name != 'pull_request'
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repo
