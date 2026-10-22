@@ -15,16 +15,57 @@ permissions: { contents: read, packages: write }
 
 jobs:
     build_frontend:
-      uses: SwaroopAV21/portfolio-frontend/.github/workflows/build.yml@main
-      secrets:
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v6
+          with:
+            repository: SwaroopAV21/portfolio-frontend
+            path: frontend
+
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Log in to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+        - name: Extract metadata (tags, labels)
+          id: meta
+          uses: docker/metadata-action@v5
+          with:
+            images: ${{ secrets.DOCKERHUB_USERNAME }}/my-portfolio
+            tags: |
+              type=ref,event=branch
+              type=semver,pattern={{version}}
+              type=sha
+
+        - name: Print Images and Tags
+          run: |
+              echo "Images: ${{ steps.meta.outputs.images }}"
+              echo "Tags: ${{ steps.meta.outputs.tags }}"
+              echo "Labels: ${{ steps.meta.outputs.labels }}"
+
+        - name: Build and push
+          uses: docker/build-push-action@v6
+          with:
+            context: ${{ github.workspace }}/frontend
+            push: ${{ github.event_name != 'pull_request' }}
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
+            cache-from: type=gha
+            cache-to: type=gha,mode=max
 
     build_backend:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repo
           uses: actions/checkout@v6
+          with:
+            path: backend
 
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
@@ -54,7 +95,7 @@ jobs:
         - name: Build and push
           uses: docker/build-push-action@v6
           with:
-            context: .
+            context: ${{ github.workspace }}/backend
             push: ${{ github.event_name != 'pull_request' }}
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
