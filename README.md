@@ -113,3 +113,17 @@ docker logs -f java-profile     # follow logs of the detached container
 docker stop java-profile        # stop the container
 docker rm java-profile          # remove the container
 ```
+
+
+### Run Docker Compose file
+
+```bash
+docker compose up -d --build    # rebuild images first (only if compose has a build: section)
+docker compose pull             # download the latest images from Docker Hub
+docker compose ps               # see which containers are running
+docker compose logs -f backend  # watch backend logs (Ctrl+C to stop watching)
+docker compose logs db          # see database logs
+docker compose restart backend  # restart one service
+docker compose down             # stop and remove containers (data is kept)
+docker compose down -v          # also delete the database data
+```
