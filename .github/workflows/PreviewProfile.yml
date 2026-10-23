@@ -20,7 +20,27 @@ jobs:
           
           curl -f http://localhost:5173
 
+      - name: Show service logs
+        working-directory: ${{ github.workspace }}/DockerComposeDir
+        run: |
+          echo "=== Docker Compose status ==="
+          docker compose ps || true
+
+          echo "=== DB logs ==="
+          docker compose logs --tail=200 db || true
+
+          echo "=== Backend logs ==="
+          docker compose logs --tail=200 backend || true
+
+          echo "=== Frontend logs ==="
+          docker compose logs --tail=200 frontend || true
+
+      - name: Stop containers
+        working-directory: ${{ github.workspace }}/DockerComposeDir
+        run: docker compose down
+
       - name: Open public link
+        if: true == false
         working-directory: ${{ github.workspace }}/DockerComposeDir
         run: |
           curl -L -o cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
