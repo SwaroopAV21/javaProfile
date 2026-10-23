@@ -31,6 +31,7 @@ jobs:
           sleep 1500
 
       - name: Stop containers
+        if: always()
         working-directory: ${{ github.workspace }}/DockerComposeDir
         run: |
           docker compose ps
