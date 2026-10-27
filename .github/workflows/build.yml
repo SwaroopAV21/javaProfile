@@ -12,6 +12,11 @@ on:
   #workflow_dispatch:
 
   workflow_call:
+    inputs:
+      workflow_callType:
+        type: string
+        required: false
+        default: 'workflow_dispatch'
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -26,8 +31,16 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repo
+          if: ${{ inputs.workflow_callType == 'workflow_dispatch' }}
           uses: actions/checkout@v6
           with:
+            path: backend
+
+        - name: Checkout Repo from ${{ inputs.workflow_callType }}
+          if: ${{ inputs.workflow_callType == 'workflow_call' }}
+          uses: actions/checkout@v6
+          with:
+            repository: SwaroopAV21/javaProfile
             path: backend
 
         - name: Set up Docker Buildx
@@ -70,8 +83,16 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repo
+          if: ${{ inputs.workflow_callType == 'workflow_dispatch' }}
           uses: actions/checkout@v6
           with:
+            path: db
+
+        - name: Checkout Repo from ${{ inputs.workflow_callType }}
+          if: ${{ inputs.workflow_callType == 'workflow_call' }}
+          uses: actions/checkout@v6
+          with:
+            repository: SwaroopAV21/javaProfile
             path: db
 
         - name: Set up Docker Buildx

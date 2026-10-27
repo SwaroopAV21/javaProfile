@@ -13,7 +13,7 @@ import com.profile.model.User;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/login")
 @RequiredArgsConstructor
 class LoginController {
