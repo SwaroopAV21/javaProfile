@@ -70,7 +70,7 @@ profile:
   mail:
     to: ${MAIL_TO:swaroopav0303@gmail.com}     # inbox where contact form lands
   cors:
-     allowed-origins: "*"
+     allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
 #    allowed-origins: >
 #      ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
 
